@@ -1026,3 +1026,681 @@ section:not(.hero) {
         font-size: 38px;
     }
 }
+.password-screen {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9999;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 25px;
+
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            rgba(100, 20, 45, .16),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #050205,
+            #0d0509,
+            #030103
+        );
+
+    transition:
+        opacity 1s ease,
+        visibility 1s ease;
+}
+
+
+/* Pequeno efeito de luz no fundo */
+
+.password-screen::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 350px;
+    height: 350px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 40, 90, .04);
+
+    filter: blur(80px);
+
+    animation: suspenseGlow 4s ease-in-out infinite;
+
+}
+
+
+@keyframes suspenseGlow {
+
+    0%, 100% {
+        transform: scale(.8);
+        opacity: .4;
+    }
+
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+}
+
+
+/* Conteúdo */
+
+.password-content {
+
+    position: relative;
+
+    z-index: 2;
+
+    width: 100%;
+
+    max-width: 480px;
+
+    text-align: center;
+
+    animation: passwordAppear 1.5s ease forwards;
+}
+
+
+@keyframes passwordAppear {
+
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Símbolo */
+
+.lock-icon {
+
+    width: 65px;
+    height: 65px;
+
+    margin: 0 auto 25px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(255,255,255,.12);
+
+    border-radius: 50%;
+
+    color: #ff668c;
+
+    font-size: 30px;
+
+    background: rgba(255,255,255,.03);
+
+    box-shadow:
+        0 0 35px rgba(255,40,90,.08);
+
+    animation: lockPulse 3s infinite;
+}
+
+
+@keyframes lockPulse {
+
+    0%, 100% {
+        box-shadow:
+            0 0 20px rgba(255,40,90,.05);
+    }
+
+    50% {
+        box-shadow:
+            0 0 40px rgba(255,40,90,.18);
+    }
+}
+
+
+/* Texto pequeno */
+
+.password-small {
+
+    color: #8e6874;
+
+    text-transform: uppercase;
+
+    letter-spacing: 5px;
+
+    font-size: 10px;
+}
+
+
+/* Título */
+
+.password-content h2 {
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
+
+    font-size: clamp(38px, 7vw, 60px);
+
+    line-height: 1;
+
+    font-weight: 500;
+
+    margin: 25px 0 20px;
+
+    color: #eee;
+}
+
+
+.password-content h2 span {
+
+    color: #ff668c;
+
+    text-shadow:
+        0 0 25px rgba(255,60,100,.25);
+}
+
+
+/* Descrição */
+
+.password-content p {
+
+    color: #8f7a82;
+
+    font-size: 13px;
+
+    line-height: 1.8;
+
+    margin-bottom: 30px;
+}
+
+
+/* Caixa da senha */
+
+.password-box {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+
+    width: 100%;
+
+    max-width: 330px;
+
+    margin: auto;
+}
+
+
+.password-box input {
+
+    width: 100%;
+
+    padding: 15px 20px;
+
+    border-radius: 50px;
+
+    border: 1px solid rgba(255,255,255,.12);
+
+    outline: none;
+
+    background: rgba(255,255,255,.04);
+
+    color: white;
+
+    text-align: center;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    backdrop-filter: blur(10px);
+
+    transition: .4s;
+}
+
+
+.password-box input::placeholder {
+
+    color: #65535b;
+}
+
+
+.password-box input:focus {
+
+    border-color: rgba(255,100,140,.5);
+
+    box-shadow:
+        0 0 25px rgba(255,50,100,.08);
+}
+
+
+/* Botão */
+
+.password-box button {
+
+    padding: 14px;
+
+    border-radius: 50px;
+
+    border: 1px solid rgba(255,255,255,.1);
+
+    background: rgba(255,255,255,.06);
+
+    color: #ddd;
+
+    font-family: inherit;
+
+    cursor: pointer;
+
+    transition: .4s;
+}
+
+
+.password-box button:hover {
+
+    background: #ff4777;
+
+    color: white;
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 10px 35px rgba(255,40,90,.2);
+}
+
+
+/* Erro */
+
+.password-error {
+
+    display: block;
+
+    margin-top: 18px;
+
+    color: #b84d68;
+
+    font-size: 11px;
+
+    opacity: 0;
+
+    transition: .3s;
+}
+
+
+.password-error.show {
+
+    opacity: 1;
+
+    animation: passwordShake .4s ease;
+}
+
+
+@keyframes passwordShake {
+
+    0%, 100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-7px);
+    }
+
+    75% {
+        transform: translateX(7px);
+    }
+}
+
+
+/* Texto inferior */
+
+.password-hint {
+
+    margin-top: 45px;
+
+    color: #4e3d44;
+
+    font-size: 9px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 2px;
+}
+
+
+.password-hint span {
+
+    color: #ff4f78;
+
+    margin-right: 6px;
+
+    animation: hintBlink 2s infinite;
+}
+
+
+@keyframes hintBlink {
+
+    0%, 100% {
+        opacity: .3;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+
+/* Quando desbloquear */
+
+.password-screen.unlocked {
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+}
+
+
+/* Animação especial quando erra */
+
+.password-screen.wrong .password-content {
+
+    animation: wrongPassword .4s ease;
+}
+
+
+@keyframes wrongPassword {
+
+    0%, 100% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-8px);
+    }
+
+    40% {
+        transform: translateX(8px);
+    }
+
+    60% {
+        transform: translateX(-6px);
+    }
+
+    80% {
+        transform: translateX(6px);
+    }
+}
+
+
+@media (max-width: 500px) {
+
+    .password-content h2 {
+        font-size: 42px;
+    }
+
+    .password-small {
+        letter-spacing: 3px;
+    }
+
+}
+/* =========================================
+   ANIMAÇÃO DE DESBLOQUEIO
+========================================= */
+
+.password-screen.unlocking {
+    animation: unlockScreen 2.2s ease forwards;
+}
+
+@keyframes unlockScreen {
+
+    0% {
+        opacity: 1;
+        filter: brightness(1);
+    }
+
+    25% {
+        filter: brightness(1.8);
+    }
+
+    55% {
+        opacity: 1;
+        filter: brightness(2.5);
+    }
+
+    100% {
+        opacity: 0;
+        visibility: hidden;
+        filter: brightness(4);
+    }
+}
+
+
+/* Brilho central */
+
+.password-screen.unlocking::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 20px;
+    height: 20px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    box-shadow:
+        0 0 20px #fff,
+        0 0 60px #ff668c,
+        0 0 120px #ff4777,
+        0 0 220px rgba(255,60,110,.8);
+
+    transform: translate(-50%, -50%) scale(1);
+
+    animation: unlockExplosion 1.8s ease-out forwards;
+
+    pointer-events: none;
+}
+
+
+@keyframes unlockExplosion {
+
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(80);
+    }
+}
+
+
+/* Conteúdo desaparecendo */
+
+.password-screen.unlocking .password-content {
+
+    animation: contentUnlock 1s ease forwards;
+}
+
+
+@keyframes contentUnlock {
+
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    40% {
+        opacity: 1;
+        transform: scale(1.04);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(1.15);
+        filter: blur(10px);
+    }
+}
+
+
+/* Animação do botão */
+
+.password-screen.unlocking
+.password-box button {
+
+    background: #ff4777;
+
+    color: white;
+
+    border-color: #ff8eaa;
+
+    box-shadow:
+        0 0 20px rgba(255,70,120,.5),
+        0 0 60px rgba(255,70,120,.4);
+
+    animation: buttonUnlock .8s ease forwards;
+}
+
+
+@keyframes buttonUnlock {
+
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.08);
+    }
+
+    100% {
+        transform: scale(1.15);
+        opacity: 0;
+    }
+}
+
+
+/* =========================================
+   PARTÍCULAS DA REVELAÇÃO
+========================================= */
+
+.unlock-particle {
+
+    position: fixed;
+
+    left: 50%;
+    top: 50%;
+
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    background: #ff86a5;
+
+    box-shadow:
+        0 0 10px #ff668c,
+        0 0 20px rgba(255,100,140,.7);
+
+    pointer-events: none;
+
+    z-index: 10001;
+
+    animation:
+        unlockParticle 1.5s
+        cubic-bezier(.15,.8,.25,1)
+        forwards;
+}
+
+
+@keyframes unlockParticle {
+
+    0% {
+
+        opacity: 1;
+
+        transform:
+            translate(-50%, -50%)
+            scale(1);
+
+    }
+
+    100% {
+
+        opacity: 0;
+
+        transform:
+            translate(
+                var(--x),
+                var(--y)
+            )
+            scale(0);
+
+    }
+}
+
+
+/* =========================================
+   FLASH FINAL
+========================================= */
+
+.unlock-flash {
+
+    position: fixed;
+
+    inset: 0;
+
+    background: white;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    z-index: 10000;
+
+    animation: unlockFlash .7s ease forwards;
+}
+
+
+@keyframes unlockFlash {
+
+    0% {
+        opacity: 0;
+    }
+
+    35% {
+        opacity: .35;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}

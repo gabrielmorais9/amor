@@ -1,4 +1,170 @@
+/* =========================================
+   SISTEMA DE SENHA
+========================================= */
 
+const passwordScreen =
+    document.getElementById("passwordScreen");
+
+const passwordInput =
+    document.getElementById("passwordInput");
+
+const passwordButton =
+    document.getElementById("passwordButton");
+
+const passwordError =
+    document.getElementById("passwordError");
+
+
+/* ALTERE A SENHA AQUI */
+
+const correctPassword = "1275";
+
+
+function unlockSite() {
+
+    const enteredPassword =
+        passwordInput.value.trim();
+
+
+    if (enteredPassword === correctPassword) {
+
+        passwordError.classList.remove("show");
+
+        /* Começa a animação */
+
+        passwordScreen.classList.add("unlocking");
+
+
+        /* Flash de luz */
+
+        const flash =
+            document.createElement("div");
+
+        flash.classList.add("unlock-flash");
+
+        document.body.appendChild(flash);
+
+
+        /* Cria partículas */
+
+        for (let i = 0; i < 80; i++) {
+
+            const particle =
+                document.createElement("div");
+
+            particle.classList.add(
+                "unlock-particle"
+            );
+
+
+            const angle =
+                Math.random() * Math.PI * 2;
+
+            const distance =
+                Math.random() * 500 + 100;
+
+
+            const x =
+                Math.cos(angle) * distance;
+
+            const y =
+                Math.sin(angle) * distance;
+
+
+            particle.style.setProperty(
+                "--x",
+                `${x}px`
+            );
+
+            particle.style.setProperty(
+                "--y",
+                `${y}px`
+            );
+
+
+            particle.style.width =
+                `${Math.random() * 5 + 2}px`;
+
+            particle.style.height =
+                particle.style.width;
+
+
+            particle.style.animationDuration =
+                `${Math.random() * .7 + 1.1}s`;
+
+
+            document.body.appendChild(
+                particle
+            );
+
+
+            setTimeout(() => {
+
+                particle.remove();
+
+            }, 2000);
+
+        }
+
+
+        /* Remove a tela depois da animação */
+
+        setTimeout(() => {
+
+            passwordScreen.style.display =
+                "none";
+
+            flash.remove();
+
+        }, 2300);
+
+
+    } else {
+
+        passwordError.classList.add("show");
+
+        passwordScreen.classList.add("wrong");
+
+        passwordInput.value = "";
+
+        passwordInput.focus();
+
+
+        setTimeout(() => {
+
+            passwordScreen.classList.remove(
+                "wrong"
+            );
+
+        }, 500);
+
+    }
+
+}
+
+
+/* Clicar no botão */
+
+passwordButton.addEventListener(
+    "click",
+    unlockSite
+);
+
+
+/* Apertar ENTER */
+
+passwordInput.addEventListener(
+    "keydown",
+    (event) => {
+
+        if (event.key === "Enter") {
+
+            unlockSite();
+
+        }
+
+    }
+);
 
 const startDate = new Date("2026-06-12T00:00:00");
 
